@@ -5,20 +5,26 @@ import './CourseInput.css';
 
 const CourseInput = props => {
   const [enteredValue, setEnteredValue] = useState('');
-  const[isvalid, setisvalid] = useState(true);
+  const[isvalid, setIsvalid] = useState(true);
+  // const[buttoncolor,setColor] = useState('');
+
+ 
 
   const goalInputChangeHandler = event => {
     if(event.target.value.trim().length >0){
-      setisvalid(true);
+      setIsvalid(true);
+     
+      
     }
     setEnteredValue(event.target.value);
+   
   };
 
   const formSubmitHandler = event => {
     event.preventDefault();
     // Trim is inbuild method used to remove white space from starting and ending
     if(enteredValue.trim().length === 0){
-      setisvalid(false);
+      setIsvalid(false);
       return;
     }
     props.onAddGoal(enteredValue);
@@ -26,15 +32,12 @@ const CourseInput = props => {
 
   return (
     <form onSubmit={formSubmitHandler}>
-      <div className="form-control">
-        <label style={{color: !isvalid ? 'red' : 'black'}}>Course Goal</label>
-        <input 
-        style={{borderColor: !isvalid ? 'red' : '#ccc',
-        background: !isvalid ? 'Salmon' : 'transparent'
-      }}
-        type="text" onChange={goalInputChangeHandler} />
+      <div className={`form-control ${!isvalid ? 'invalid' : ''}`} >
+
+        <label >Course Goal</label>
+        <input type="text" onChange={goalInputChangeHandler} />
       </div>
-      <Button type="submit">Add Goal</Button>
+      <Button type="submit" >Add Goal</Button>
     </form>
   );
 };
